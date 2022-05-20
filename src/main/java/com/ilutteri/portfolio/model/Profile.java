@@ -11,8 +11,8 @@ public class Profile implements Serializable {
     private Long id;
     private String name;
     private String title;
-    private String bannerURL;
-    private String profileURL;
+    private String bannerUrl;
+    private String profileUrl;
     private String about;
 
     public Profile() {
@@ -22,8 +22,8 @@ public class Profile implements Serializable {
         this.id = id;
         this.name = name;
         this.title = title;
-        this.bannerURL = bannerURL;
-        this.profileURL = profileURL;
+        this.bannerUrl = bannerURL;
+        this.profileUrl = profileURL;
         this.about = about;
     }
 
@@ -52,19 +52,19 @@ public class Profile implements Serializable {
     }
 
     public String getBannerURL() {
-        return bannerURL;
+        return bannerUrl;
     }
 
     public void setBannerURL(String bannerURL) {
-        this.bannerURL = bannerURL;
+        this.bannerUrl = bannerURL;
     }
 
     public String getProfileURL() {
-        return profileURL;
+        return profileUrl;
     }
 
     public void setProfileURL(String profileURL) {
-        this.profileURL = profileURL;
+        this.profileUrl = profileURL;
     }
 
     public String getAbout() {
@@ -81,8 +81,8 @@ public class Profile implements Serializable {
                 "id=" + id +
                 ", name='" + name + '\'' +
                 ", title='" + title + '\'' +
-                ", bannerURL='" + bannerURL + '\'' +
-                ", profileURL='" + profileURL + '\'' +
+                ", bannerURL='" + bannerUrl + '\'' +
+                ", profileURL='" + profileUrl + '\'' +
                 ", about='" + about + '\'' +
                 '}';
     }

@@ -129,9 +129,11 @@ public class PortfolioResource {
 
     @DeleteMapping("/skillType/delete/{id}")
     public ResponseEntity<?> deleteSkillType(@PathVariable("id") Long id){
-        skillTypeService.deleteSkillType(id);
+        skillService.deleteSkill(id);
         return new ResponseEntity<>(HttpStatus.OK);
     }
+
+
 
     /** PROJECTS **/
 
