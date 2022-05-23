@@ -22,6 +22,7 @@ public class JwtTokenFilter extends OncePerRequestFilter {
     @Autowired
     JwtProvider jwtProvider;
 
+    @Autowired
     UserDetailsServiceImpl userDetailsService;
 
     @Override

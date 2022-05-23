@@ -3,11 +3,8 @@ package com.ilutteri.portfolio.security.controller;
 import com.ilutteri.portfolio.security.dto.JwtDto;
 import com.ilutteri.portfolio.security.dto.LoginUsuario;
 import com.ilutteri.portfolio.security.dto.NuevoUsuario;
-import com.ilutteri.portfolio.security.entity.Rol;
 import com.ilutteri.portfolio.security.entity.Usuario;
-import com.ilutteri.portfolio.security.enums.RolNombre;
 import com.ilutteri.portfolio.security.jwt.JwtProvider;
-import com.ilutteri.portfolio.security.service.RolService;
 import com.ilutteri.portfolio.security.service.UsuarioService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
@@ -23,8 +20,6 @@ import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.*;
 
 import javax.validation.Valid;
-import java.util.HashSet;
-import java.util.Set;
 
 @RestController
 @RequestMapping("/auth")
@@ -41,11 +36,9 @@ public class AuthController {
     UsuarioService usuarioService;
 
     @Autowired
-    RolService rolService;
-
-    @Autowired
     JwtProvider jwtProvider;
 
+    @Validated
     @PostMapping("/nuevo")
     public ResponseEntity<?> nuevo(@Valid @RequestBody NuevoUsuario nuevoUsuario, BindingResult bindingResult) {
         if (bindingResult.hasErrors())
@@ -58,11 +51,6 @@ public class AuthController {
                         nuevoUsuario.getNombreUsuario(),
                         nuevoUsuario.getEmail(),
                         passwordEncoder.encode(nuevoUsuario.getPassword()));
-        Set<Rol> roles = new HashSet<>();
-        roles.add(rolService.getByRolNombre(RolNombre.ROLE_USER).get());
-        if (nuevoUsuario.getRoles().contains("admin"))
-            roles.add(rolService.getByRolNombre(RolNombre.ROLE_ADMIN).get());
-        usuario.setRoles(roles);
         usuarioService.save(usuario);
         return new ResponseEntity(new Mensaje("usuario guardado"), HttpStatus.CREATED);
     }
@@ -77,7 +65,7 @@ public class AuthController {
             SecurityContextHolder.getContext().setAuthentication(authentication);
             String jwt = jwtProvider.generateToken(authentication);
             UserDetails userDetails = (UserDetails)authentication.getPrincipal();
-            JwtDto jwtDto = new JwtDto(jwt, userDetails.getUsername(), userDetails.getAuthorities());
+            JwtDto jwtDto = new JwtDto(jwt, userDetails.getUsername());
             return new ResponseEntity(jwtDto, HttpStatus.OK);
         }
     }
