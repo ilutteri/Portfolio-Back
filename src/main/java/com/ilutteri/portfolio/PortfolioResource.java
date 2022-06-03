@@ -75,6 +75,7 @@ public class PortfolioResource {
         return new ResponseEntity<>(updateExperience, HttpStatus.OK);
     }
 
+
     @DeleteMapping("/experience/delete/{id}")
     public ResponseEntity<?> deleteExperience(@PathVariable("id") Long id){
         experienceService.deleteExperience(id);
@@ -100,6 +101,13 @@ public class PortfolioResource {
         Education updateEducation = educationService.updateEducation(education);
         return new ResponseEntity<>(updateEducation, HttpStatus.OK);
     }
+
+    @PutMapping("/education/update-list")
+    public ResponseEntity<List<Education>> updateEducationList(@RequestBody List<Education> educationList){
+        List<Education> updateEducationList = educationService.updateEducationList(educationList);
+        return new ResponseEntity<>(updateEducationList, HttpStatus.OK);
+    }
+
 
     @DeleteMapping("/education/delete/{id}")
     public ResponseEntity<?> deleteEducation(@PathVariable("id") Long id){

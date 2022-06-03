@@ -27,6 +27,8 @@ public class EducationService {
         return educationRepo.save(education);
     }
 
+    public List<Education> updateEducationList(List<Education> educationList) {return educationRepo.saveAll(educationList); }
+
     public void deleteEducation(Long id){
         educationRepo.deleteById(id);
     }
